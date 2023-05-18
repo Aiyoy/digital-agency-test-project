@@ -1,0 +1,30 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  /* width: 1920px; */
+  font-size: 22px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  text-decoration: none;
+}
+*:hover {
+  transition: 0.4s;
+}
+
+.section {
+  background-color: aliceblue;
+  margin: 0 auto;
+  padding: 224px 375px;
+}
+
+#header {
+  padding-top: 112px;
+}

@@ -1,0 +1,23 @@
+{ 
+  "include": [
+    "src/**/*",
+    "src/**/**/*"
+  ],
+  "exclude": [
+    "./node_modules"
+  ],
+  "compilerOptions": {
+    "target": "es2017",                                 
+
+    "module": "commonjs",                                
+    "rootDir": "./src",                                 
+    "sourceMap": true,                               
+    "outDir": "./",                                  
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": true,            
+
+    "strict": true,                                      
+    "noImplicitAny": true,                           
+    "skipLibCheck": true                                
+  }
+}
