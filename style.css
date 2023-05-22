@@ -1,9 +1,9 @@
 :root {
   --fontsize: 20px;
   --paddingsize: 112px;
-  --sectionmargin: 375px;
+  --sectionpadding: 375px;
   --maincolor: #ffffff;
-  --addcolor: #DDECCC;
+  --addcolor: #ddeccc25;
   --btncolor: #BC2649;
   --fontcolor: #101010;
   --footercolor: #213430;
@@ -18,6 +18,7 @@ body {
   font-weight: 300;
   font-family: 'SF UI Display', sans-serif;
   position: relative;
+  transition: 0.25s;
 }
 
 *,
@@ -28,7 +29,7 @@ body {
   text-decoration: none;
 }
 *:hover {
-  transition: 0.4s;
+  transition: 0.25s;
 }
 ul {    
   padding: 0;
@@ -47,20 +48,21 @@ a {
   overflow: hidden;
   width: 100%;
   margin: 0 auto;
-  padding: calc(var(--paddingsize)*2) var(--sectionmargin);
+  padding: calc(var(--paddingsize)*2) var(--sectionpadding);
 }
 .grid-container {
   display: grid;
   grid-template-columns: 40% 60%;
 }
 .flex-container {
+  position: relative;
   display: flex;
   justify-content: space-between;
 }
 .caption {
   font-size: 82px;
   font-weight: 600;
-  line-height: 98px;
+  line-height: 97px;
   text-transform: uppercase;
 }
 .caption:first-child {
@@ -73,7 +75,7 @@ a {
 .sub-caption {
   position: absolute;
   top: 237px;
-  right: var(--sectionmargin);
+  right: var(--sectionpadding);
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -165,7 +167,7 @@ a {
   content: '';
   position: absolute;
   display: block;
-  width: calc(100% + var(--sectionmargin));
+  width: calc(100% + var(--sectionpadding));
   left: 0;
   bottom: 0;
   border-bottom: 1px solid rgba(110, 137, 121, 0.4);
@@ -193,5 +195,134 @@ a {
 
 /* SERVICES */
 #services {
+  position: relative;
   background-color: var(--addcolor);
+}
+#services > .grid-container > div {
+  margin: 10px 0px 0px 32px;
+  font-size: 40px;
+  line-height: 52px;
+}
+.services-img {
+  position: absolute;
+  width: 593px;
+  height: 645px;
+  left: -200px;
+  top: 585px;
+  transform: rotate(198deg);
+  background-image: url(./assets/logo.svg);
+}
+
+/* CASES */
+#cases {
+ padding-left: 0;
+ padding-right: 0;
+}
+#cases > div > .caption {
+  margin-bottom: 128px;
+  padding-left: var(--sectionpadding);
+}
+#cases > .flex-container{
+  flex-wrap: wrap;
+}
+.case-item {
+  position: relative;
+  width: 50%;
+  height: 500px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.case-item:hover .class-item-img {
+  transform: scale(1.06) translate(40px, 0);
+}
+.case-item:hover .class-item-caption-container {
+  transform: translate(0px, 20px);
+}
+.class-item-caption-container {
+  position: absolute;
+  bottom: 95px;
+  left: 115px;
+  transition: 0.25s;
+}
+.case-item:nth-child(2n+1) > .class-item-caption-container {
+  left: 196px;
+}
+.class-item-img {
+  position: absolute;
+  background-size: cover;
+  transition: 0.25s;
+}
+.class-item-caption {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+  text-transform: uppercase;
+}
+.class-item-subcaption {
+  font-size: 22px;
+  line-height: 50px;
+}
+.my-dent {
+  background-color: #FCFCFC;
+}
+.my-dent > .class-item-img {
+  width: 297px;
+  height: 283px;
+  right: 225px;
+  top: 30px;
+  background-image: url(./assets/images-removebg-preview\ 1.svg);
+}
+.my-dent > .class-item-caption-container > .class-item-caption {
+  background: linear-gradient(272.56deg, #374E9D 4.23%, #31499B 28.47%, #6B386E 63.33%, #EC3237 104.12%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.my-dent > .class-item-caption-container > .class-item-subcaption {
+  color: #484D61;
+}
+.dolunts {
+  background-color: #C3D3C9;
+}
+.dolunts > .class-item-img {
+  width: 400px;
+  height: 327px;
+  right: 20px;
+  top: 47px;
+  background-image: url(./assets/education-png-3\ 1.svg);
+}
+.dolunts > .class-item-caption-container > .class-item-caption {
+  color: #413D3D;
+  }
+.dolunts > .class-item-caption-container > .class-item-subcaption {
+  color: #585858;
+}
+.lounge {
+  background-color: #1F1B20;
+}
+.lounge > .class-item-img {
+  width: 223px;
+  height: 218px;
+  right: 265px;
+  top: 67px;
+  background-image: url(./assets/лого\ темное\ 1.svg);
+}
+.lounge > .class-item-caption-container > .class-item-caption {
+  color: #63B5AC;
+}
+.lounge > .class-item-caption-container > .class-item-subcaption {
+  color: var(--maincolor);
+}
+.sneakers {
+  background-color: #FBFBFB;
+}
+.sneakers > .class-item-img {
+  width: 355px;
+  height: 245px;
+  right: 70px;
+  top: 70px;
+  background-image: url(./assets/custom-nike-air-force-1-high-by-you-shoes\ 1.svg);
+}
+.sneakers > .class-item-caption-container > .class-item-subcaption {
+  color: #363636;
 }
