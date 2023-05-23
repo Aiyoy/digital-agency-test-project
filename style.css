@@ -550,3 +550,33 @@ pre {
   color: var(--errorcolor);
   font-size: 15px;
 }
+
+/* FOOTER */
+#footer {
+  height: 260px;
+  padding-top: 45px;
+  padding-bottom: 45px;
+  background-color: var(--footercolor);
+}
+#footer > .header-nav-burger > .header-nav-burger-list {
+  display: flex;
+  flex-direction: row;
+  column-gap: 88px;
+  color: var(--maincolor);
+}
+#footer a {
+  color: var(--maincolor);
+}
+#footer a:hover {
+  color: var(--addcolor2);
+}
+.footer-flex-container {
+  justify-content: flex-start;
+  padding-top: 96px;
+  column-gap: 150px;
+  color: var(--maincolor);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 48px;
+  text-transform: uppercase;
+}
