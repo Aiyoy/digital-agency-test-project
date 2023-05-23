@@ -19,21 +19,21 @@
           <div class="leave-link">Оставить заявку</div>
           <div>+375 29 267 79 99</div>
         </div>
-        <nav class="header-nav-burger">
-          <ul class="header-nav-burger-list">
-              <li class="header-nav-burger-items">
+        <nav class="nav-burger">
+          <ul class="nav-burger-list">
+              <li class="nav-burger-items">
                   <a href="#main">Главная</a>
               </li>
-              <li class="header-nav-burger-items">
+              <li class="nav-burger-items">
                 <a href="#values">Наши ценности</a>
               </li>
-              <li class="header-nav-burger-items">
+              <li class="nav-burger-items">
                   <a href="#services">Услуги</a>
               </li>
-              <li class="header-nav-burger-items">
+              <li class="nav-burger-items">
                 <a href="#cases">Кейсы</a>
               </li>
-              <li class="header-nav-burger-items">
+              <li class="nav-burger-items">
                 <a href="#contacts">Контакты</a>
               </li>
             </ul>
@@ -136,10 +136,76 @@
 
     </section>
     <section class="section" id="contacts">
-
+      <div>
+        <h2 class="caption">расскажите о</h2>
+        <h2 class="caption">вашем проекте</h2>
+      </div>
+      <form action="">
+        <div class="flex-container">
+          <div class="contacts-input-container name">
+            <label class="contacts-label" for="name">Ваше имя</label>
+            <input class="contacts-input" id="name" type="text">
+          </div>
+          <div class="contacts-input-container tel">
+            <label class="contacts-label" for="tel">Ваш телефон</label>
+            <input class="contacts-input" id="tel" type="tel">
+          </div>
+          <div class="contacts-input-container email">
+            <label class="contacts-label" for="email">Ваша почта</label>
+            <input class="contacts-input" id="email" type="email">
+          </div>
+        </div>
+        <div class="contacts-input-container about">
+          <label class="contacts-label" for="about">Расскажите о своем проекте</label>
+          <input class="contacts-input" id="about" type="text">
+        </div>
+        <div class="contacts-input-container contacts-file-container">
+          <label class="contacts-file-label" for="file">            
+            <input class="contacts-file-input" id="file" type="file" multiple>
+            <span>
+              Прикрепить файл
+              <span></span>
+            </span>            
+          </label>
+          <div class="flex-container files-names-container">
+          </div>
+          <span class="file-name"></span>        
+        </div>
+        <div class="contacts-input-container checkbox">
+          <input class="contacts-checkbox-input" type="checkbox" id="checkbox">
+          <label class="contacts-checkbox-label" for="checkbox"><pre>Я согласен на обработку </pre><a href="#">персональных данных</a></label>
+        </div>
+        <div class="form-btn">
+          Отправить
+        </div>
+      </form>
     </section>    
   </main>
-  <footer></footer>
+  <footer class="section" id="footer">
+    <div class="flex-container">
+      <nav class="header-nav-burger">
+        <ul class="header-nav-burger-list">
+            <li class="header-nav-burger-items">
+                <a href="#main">Главная</a>
+            </li>
+            <li class="header-nav-burger-items">
+              <a href="#values">Наши ценности</a>
+            </li>
+            <li class="header-nav-burger-items">
+                <a href="#services">Услуги</a>
+            </li>
+            <li class="header-nav-burger-items">
+              <a href="#cases">Кейсы</a>
+            </li>
+            <li class="header-nav-burger-items">
+              <a href="#contacts">Контакты</a>
+            </li>
+          </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="./src/index.js"></script>
 
 </body>
 </html>

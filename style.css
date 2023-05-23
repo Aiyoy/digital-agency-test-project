@@ -4,9 +4,10 @@
   --sectionpadding: 375px;
   --maincolor: #ffffff;
   --addcolor: #ddeccc25;
-  --btncolor: #BC2649;
+  --addcolor2: #BC2649;
   --fontcolor: #101010;
   --footercolor: #213430;
+  --errorcolor: #FF1430;
 }
 
 html {
@@ -41,6 +42,11 @@ a {
   text-decoration: none;
   color: var(--fontcolor);
   cursor: pointer;
+}
+pre {
+  font-size: var(--fontsize);
+  font-weight: 300;
+  font-family: 'SF UI Display', sans-serif;
 }
 
 .section {
@@ -97,16 +103,16 @@ a {
   cursor: pointer;
 }
 .leave-link:hover {
-  color: var(--btncolor);
+  color: var(--addcolor2);
 }
-.header-nav-burger-list {
+.nav-burger-list {
   text-align: right;
 }
-.header-nav-burger-items {
+.nav-burger-items {
   padding: 0 5px;
 }
-.header-nav-burger-items:hover {
-  background-color: var(--addcolor);
+.nav-burger-items:hover > a {
+  color: var(--addcolor2);
 }
 .header-left-grid-cell {
   padding-top: 45px;
@@ -125,9 +131,13 @@ a {
   position: absolute;
   width: 593px;
   height: 660px;
-  left: 1546px;
+  right: -220px;
   top: 192px;
   background-image: url(./assets/logo.svg);
+  transition: 0.3s;
+}
+.header-img:hover {
+  transform: scale(1.1) rotate(-15deg);
 }
 
 /* MAIN */
@@ -144,16 +154,19 @@ a {
 }
 .main-banner {
   padding: 34px 15px 34px 47px;
-  width: 435.99px;
+  width: 436px;
   height: 170px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  background: var(--btncolor);
+  background: var(--addcolor2);
   color: var(--maincolor);
   font-size: 24px;
   font-weight: 500;
   text-transform: uppercase;
   line-height: 34px;
   clip-path: polygon(0% 0%, 385px 0, 100% 45px, 100% 100%, 0% 100%);
+}
+.main-banner:hover {
+  transform: scale(1.1);
 }
 
 /* VALUES */
@@ -206,17 +219,21 @@ a {
 .services-img {
   position: absolute;
   width: 593px;
-  height: 645px;
+  height: 660px;
   left: -200px;
-  top: 585px;
+  top: 570px;
   transform: rotate(198deg);
   background-image: url(./assets/logo.svg);
+}
+.services-img:hover {
+  transform: scale(1.1) rotate(-185deg);
 }
 
 /* CASES */
 #cases {
  padding-left: 0;
  padding-right: 0;
+ padding-bottom: 0;
 }
 #cases > div > .caption {
   margin-bottom: 128px;
@@ -270,7 +287,7 @@ a {
   height: 283px;
   right: 225px;
   top: 30px;
-  background-image: url(./assets/images-removebg-preview\ 1.svg);
+  background-image: url(./assets/dent.svg);
 }
 .my-dent > .class-item-caption-container > .class-item-caption {
   background: linear-gradient(272.56deg, #374E9D 4.23%, #31499B 28.47%, #6B386E 63.33%, #EC3237 104.12%);
@@ -289,7 +306,7 @@ a {
   height: 327px;
   right: 20px;
   top: 47px;
-  background-image: url(./assets/education-png-3\ 1.svg);
+  background-image: url(./assets/education.svg);
 }
 .dolunts > .class-item-caption-container > .class-item-caption {
   color: #413D3D;
@@ -305,7 +322,7 @@ a {
   height: 218px;
   right: 265px;
   top: 67px;
-  background-image: url(./assets/лого\ темное\ 1.svg);
+  background-image: url(./assets/lounge.svg);
 }
 .lounge > .class-item-caption-container > .class-item-caption {
   color: #63B5AC;
@@ -321,8 +338,215 @@ a {
   height: 245px;
   right: 70px;
   top: 70px;
-  background-image: url(./assets/custom-nike-air-force-1-high-by-you-shoes\ 1.svg);
+  background-image: url(./assets/sneaker.svg);
 }
 .sneakers > .class-item-caption-container > .class-item-subcaption {
   color: #363636;
+}
+
+/* CONTACTS */
+.contacts-input-container {
+  position: relative;
+  width: 100%;
+}
+.contacts-input-container.error {
+  color: var(--errorcolor);
+}
+.contacts-input-container.error > input {
+  color: var(--errorcolor);
+  border-bottom: 3px solid var(--errorcolor);
+}
+.flex-container > .contacts-input-container {
+  width: 31.5%;
+}
+.contacts-input {
+  padding-top: 52px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #47443C;
+  padding-bottom: 13px;
+  font-size: 22px;
+  line-height: 29px;
+  background: transparent;
+}
+.contacts-input:hover {
+  border-bottom: 1px solid var(--addcolor2);
+}
+.contacts-input:focus {
+  border-bottom: 3px solid var(--addcolor2);
+  outline: none;
+}
+.contacts-input:active {
+  border-bottom: 3px solid var(--addcolor2);
+  outline: none;
+}
+.contacts-label {
+  position: absolute; 
+  display: inline-block;
+  bottom: 13px;
+  font-size: 22px;
+  line-height: 29px;
+  color: #585858;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.contacts-label.label-end {
+  bottom: 50px;
+}
+.contacts-file-container {
+  display: flex;
+  margin: 56px 0 40px 0;
+  align-items: center;
+}
+.file-name {
+  margin-left: 50px;
+}
+.contacts-file-label {
+  position: relative;
+	display: block;
+  width: 300px;
+  height: 72px;
+  border: 1px solid #ddeccc4d;
+  border-radius: 35px;
+  cursor: pointer;
+}
+.contacts-file-container.error > .contacts-file-label {
+  border: 2px solid var(--errorcolor);
+}
+.contacts-file-label.checked {
+  color: var(--addcolor2);
+  border: 2px solid var(--addcolor2);
+}
+.contacts-file-label:hover {
+  border: 1px solid var(--addcolor2);
+}
+.contacts-file-label:focus {
+  border: 2px solid var(--addcolor2);
+}
+.contacts-file-label:active {
+  border: 2px solid var(--addcolor2);
+}
+.contacts-file-label > span {
+  position: relative;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 20px;
+  line-height: 24px;
+	vertical-align: middle;
+	text-align: center;
+	height: 40px;
+	padding: 24px 87px 24px 50px;
+}
+.contacts-file-label > span > span {
+  position: absolute;
+  height: 33px;
+  width: 33px;
+  top: 22px;
+  left: 220px;
+  background-image: url(./assets/Vector.svg);
+  background-size: 33px 33px;
+  background-repeat: no-repeat;
+}
+.contacts-file-input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+  outline: none;
+}
+.files-names-container {
+  display: flex;
+  margin-left: 60px;
+  column-gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.files-names-container > span {
+  padding: 10px 33px 10px 10px;
+  height: 45px;
+  background: rgba(221, 236, 204, 0.12);
+  border-radius: 4px;
+}
+.contacts-input-container {
+  cursor: pointer;
+}
+.checkbox.error > label > pre {
+  color: var(--fontcolor);
+}
+.checkbox.error > .contacts-checkbox-input + label::before {
+  border: 2px solid var(--errorcolor);
+}
+.contacts-checkbox-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.contacts-checkbox-label,
+.contacts-checkbox-label > pre {
+  font-size: 22px;
+  line-height: 29px;
+}
+.contacts-checkbox-input + label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+.contacts-checkbox-input + label::before {
+  content: '';
+  display: inline-block;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background: rgba(221, 236, 204, 0.12);  
+  border: 2px solid #C5D0C9;
+  border-radius: 3px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 75% 75%;
+}
+.contacts-checkbox-input:checked + label::before {
+  border-color: #4BC6E1;
+  background-color: #4BC6E1;
+  background-image: url(./assets/check.svg);
+}
+.contacts-checkbox-input:hover + label::before {
+  border-color: #4BC6E1;
+}
+.contacts-checkbox-label > a {
+  color: #4BC6E1;
+}
+.form-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: 280px;
+  margin: 55px auto 0px auto;
+  background-color: var(--addcolor2);
+  border: none;
+  border-radius: 50%;
+  color: var(--maincolor);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 36px;
+  transition: 0.25s;
+}
+.form-btn:hover {
+  transform: scale(1.1);
+}
+.form-btn:active {
+  transform: scale(1);
+}
+.input-error {
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  color: var(--errorcolor);
+  font-size: 15px;
 }
