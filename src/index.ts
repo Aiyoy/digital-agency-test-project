@@ -2,34 +2,37 @@ const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.contact
 const labels: NodeListOf<HTMLLabelElement> = document.querySelectorAll('.contacts-label');
 const fileInput: HTMLInputElement = document.querySelector('.contacts-file-input') as HTMLInputElement;
 const submitBTN: HTMLElement = document.querySelector('.form-btn') as HTMLElement;
-const nameInput = document.querySelector('#name') as HTMLInputElement;
-const telInput = document.querySelector('#tel') as HTMLInputElement;
-const emailInput = document.querySelector('#email') as HTMLInputElement;
-const aboutInput = document.querySelector('#about') as HTMLInputElement;
-const checkbox = document.querySelector('#checkbox') as HTMLInputElement;
-
-const nameInputContainer = document.querySelector('.name') as HTMLElement;
-const telInputContainer = document.querySelector('.tel') as HTMLElement;
-const emailInputContainer = document.querySelector('.email') as HTMLElement;
-const aboutInputContainer = document.querySelector('.about') as HTMLElement;
-const checkboxContainer = document.querySelector('.checkbox') as HTMLElement;
-const fileInputContainer = document.querySelector('.contacts-file-container') as HTMLElement;
-
-const modalCloseBtns = document.querySelectorAll('.modal-close');
-const modalBCG = document.querySelector('.modal-background');
-const modal = document.querySelector('.modal');
-const modalCaptionEl = document.querySelector('.modal-caption');
-const modalTextEl = document.querySelector('.modal-text');
-const agreeLink = document.querySelector('#agreement-link');
+const nameInput: HTMLInputElement = document.querySelector('#name') as HTMLInputElement;
+const telInput: HTMLInputElement = document.querySelector('#tel') as HTMLInputElement;
+const emailInput: HTMLInputElement = document.querySelector('#email') as HTMLInputElement;
+const aboutInput: HTMLInputElement = document.querySelector('#about') as HTMLInputElement;
+const checkbox: HTMLInputElement = document.querySelector('#checkbox') as HTMLInputElement;
+const nameInputContainer: HTMLElement = document.querySelector('.name') as HTMLElement;
+const telInputContainer: HTMLElement = document.querySelector('.tel') as HTMLElement;
+const emailInputContainer: HTMLElement = document.querySelector('.email') as HTMLElement;
+const aboutInputContainer: HTMLElement = document.querySelector('.about') as HTMLElement;
+const checkboxContainer: HTMLElement = document.querySelector('.checkbox') as HTMLElement;
+const fileInputContainer: HTMLElement = document.querySelector('.contacts-file-container') as HTMLElement;
+const modalCloseBtns: NodeListOf<HTMLElement> = document.querySelectorAll('.modal-close');
+const modalBCG: HTMLElement  = document.querySelector('.modal-background') as HTMLElement;
+const modal: HTMLElement  = document.querySelector('.modal') as HTMLElement;
+const modalCaptionEl: HTMLElement  = document.querySelector('.modal-caption') as HTMLElement;
+const modalTextEl: HTMLElement  = document.querySelector('.modal-text') as HTMLElement;
+const agreeLink: HTMLElement  = document.querySelector('#agreement-link') as HTMLElement;
+const burgerBTN: HTMLElement = document.querySelector('.burger-img-conteiner') as HTMLElement;
+const burgerMenu: HTMLElement = document.querySelector('.nav-burger') as HTMLElement;
+const burgerMenuItems: NodeListOf<HTMLElement> = document.querySelectorAll('#header .nav-burger-items');
+const fileNamesContainer = document.querySelector('.files-name-container');
+const filesLabel = document.querySelector('.contacts-file-label');
 
 const errors = {
   emptyInput: 'Поле должно быть заполнено',
   toShortName: 'Имя должно содержать не менее 3 символов',
-  toShortAbout: 'Описание проекта должно содержать не менее 3 символов',
+  toShortAbout: 'Описание должно содержать не менее 3 символов',
   toShortEmail: 'E-mail должен содержать не менее 3 символов',
   toShortTel: 'Номер телефона должен состоять из 12 символов',
   invalidEmail: 'Введен неверный адрес электронной почты',
-  isNotChecked: 'Необходимо ваше согласие на обработку персональных данных',
+  isNotChecked: 'Необходимо Ваше согласие',
 }
 
 const modalContent = {
@@ -87,7 +90,7 @@ const modalContent = {
   }
 }
 
-const formValues: {name: string, tel: string, email: string, about: string, files: string[], checkbox: boolean} = {
+const formValues: {name: string, tel: string, email: string, about: string, files: any[], checkbox: boolean} = {
   name: '',
   tel: '',
   email: '',
@@ -118,19 +121,29 @@ inputs.forEach((input, index: number) => {
 
 fileInput.addEventListener('change', function() {
   removeError(fileInputContainer);
-  const fileNamesContainer = document.querySelector('.files-names-container');
-  if (this && this.files && fileNamesContainer) {
+  if (this && this.files) {
     formValues.files = [];
-    let files = this.files;
+    for (let i = 0; i < this.files.length; i++) {
+      formValues.files.push({fileName: this.files[i].name, fileSize: this.files[i].size});
+    }
+    renderFiles(formValues.files);
+  }
+  filesLabel?.classList.add('checked');
+});
+
+function renderFiles(files: {fileName: string, fileSize: number}[]) {
+  if (fileNamesContainer) {
     let filesHTMLText = '';
     for (let i = 0; i < files.length; i++) {
-      filesHTMLText += `<span>${files[i].name} (${Math.round(files[i].size / 1024)} КВ)</span>`;
-      formValues.files.push(files[i].name);  
+      filesHTMLText += `<div class="file-name-item">${files[i].fileName} (${Math.round(files[i].fileSize / 1024)} КВ)<div class="file-name-delete"></div></div>`;
     }
     fileNamesContainer.innerHTML = filesHTMLText;
-    document.querySelector('.contacts-file-label')?.classList.add('checked');
-  }  
-});
+    const fileDeleteBTNs = document.querySelectorAll('.file-name-delete');
+    fileDeleteBTNs.forEach((btn, index) => {
+      btn.addEventListener('click', () => deleteFile(index));
+    })
+  }
+}
 
 function showError(container: HTMLElement, errorText: string) {
   removeError(container);
@@ -234,16 +247,6 @@ submitBTN.addEventListener('click', () => {
 
     toogleModal();
   };
-
-  // const randomNumber: number = getRandomNumber();
-
-  // if (randomNumber < 0.7) {
-  //   modalOpen('succes');
-  // } else {
-  //   modalOpen('error');
-  // }
-
-  // toogleModal();
 });
 
 function getRandomNumber(): number {
@@ -277,7 +280,44 @@ modalBCG?.addEventListener('click', (event) => {
 });
 
 agreeLink!.addEventListener('click', () => {
-  console.log('agree');
   modalOpen('agreement');
   toogleModal();
 });
+
+const btnUp = {
+  el: document.querySelector('.top-btn'),
+  show() {
+    if (this.el) this.el.classList.remove('hide');
+  },
+  hide() {
+    if (this.el) this.el.classList.add('hide');
+  },
+  addEventListener() {
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      scrollY > 700 && document.documentElement.clientWidth <= 1180 ? this.show() : this.hide();
+    });
+  }
+}
+
+btnUp.addEventListener();
+
+burgerBTN.addEventListener('click', () => {
+  burgerMenu.classList.toggle('open');
+  burgerBTN.classList.toggle('open');
+});
+
+burgerMenuItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    burgerMenu.classList.toggle('open');
+    burgerBTN.classList.toggle('open');
+  })
+});
+
+function deleteFile(index: number) {
+  formValues.files.splice(index, 1);
+  renderFiles(formValues.files);
+  if (!formValues.files.length) {
+    filesLabel?.classList.remove('checked');
+  }
+}

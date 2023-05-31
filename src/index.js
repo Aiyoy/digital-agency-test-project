@@ -19,14 +19,19 @@ var modal = document.querySelector('.modal');
 var modalCaptionEl = document.querySelector('.modal-caption');
 var modalTextEl = document.querySelector('.modal-text');
 var agreeLink = document.querySelector('#agreement-link');
+var burgerBTN = document.querySelector('.burger-img-conteiner');
+var burgerMenu = document.querySelector('.nav-burger');
+var burgerMenuItems = document.querySelectorAll('#header .nav-burger-items');
+var fileNamesContainer = document.querySelector('.files-name-container');
+var filesLabel = document.querySelector('.contacts-file-label');
 var errors = {
     emptyInput: 'Поле должно быть заполнено',
     toShortName: 'Имя должно содержать не менее 3 символов',
-    toShortAbout: 'Описание проекта должно содержать не менее 3 символов',
+    toShortAbout: 'Описание должно содержать не менее 3 символов',
     toShortEmail: 'E-mail должен содержать не менее 3 символов',
     toShortTel: 'Номер телефона должен состоять из 12 символов',
     invalidEmail: 'Введен неверный адрес электронной почты',
-    isNotChecked: 'Необходимо ваше согласие на обработку персональных данных',
+    isNotChecked: 'Необходимо Ваше согласие',
 };
 var modalContent = {
     succes: {
@@ -68,21 +73,29 @@ inputs.forEach(function (input, index) {
     });
 });
 fileInput.addEventListener('change', function () {
-    var _a;
     removeError(fileInputContainer);
-    var fileNamesContainer = document.querySelector('.files-names-container');
-    if (this && this.files && fileNamesContainer) {
+    if (this && this.files) {
         formValues.files = [];
-        var files = this.files;
+        for (var i = 0; i < this.files.length; i++) {
+            formValues.files.push({ fileName: this.files[i].name, fileSize: this.files[i].size });
+        }
+        renderFiles(formValues.files);
+    }
+    filesLabel === null || filesLabel === void 0 ? void 0 : filesLabel.classList.add('checked');
+});
+function renderFiles(files) {
+    if (fileNamesContainer) {
         var filesHTMLText = '';
         for (var i = 0; i < files.length; i++) {
-            filesHTMLText += "<span>".concat(files[i].name, " (").concat(Math.round(files[i].size / 1024), " \u041A\u0412)</span>");
-            formValues.files.push(files[i].name);
+            filesHTMLText += "<div class=\"file-name-item\">".concat(files[i].fileName, " (").concat(Math.round(files[i].fileSize / 1024), " \u041A\u0412)<div class=\"file-name-delete\"></div></div>");
         }
         fileNamesContainer.innerHTML = filesHTMLText;
-        (_a = document.querySelector('.contacts-file-label')) === null || _a === void 0 ? void 0 : _a.classList.add('checked');
+        var fileDeleteBTNs = document.querySelectorAll('.file-name-delete');
+        fileDeleteBTNs.forEach(function (btn, index) {
+            btn.addEventListener('click', function () { return deleteFile(index); });
+        });
     }
-});
+}
 function showError(container, errorText) {
     removeError(container);
     container.classList.add('error');
@@ -181,13 +194,6 @@ submitBTN.addEventListener('click', function () {
         toogleModal();
     }
     ;
-    // const randomNumber: number = getRandomNumber();
-    // if (randomNumber < 0.7) {
-    //   modalOpen('succes');
-    // } else {
-    //   modalOpen('error');
-    // }
-    // toogleModal();
 });
 function getRandomNumber() {
     return Math.random();
@@ -214,7 +220,42 @@ modalBCG === null || modalBCG === void 0 ? void 0 : modalBCG.addEventListener('c
     toogleModal();
 });
 agreeLink.addEventListener('click', function () {
-    console.log('agree');
     modalOpen('agreement');
     toogleModal();
 });
+var btnUp = {
+    el: document.querySelector('.top-btn'),
+    show: function () {
+        if (this.el)
+            this.el.classList.remove('hide');
+    },
+    hide: function () {
+        if (this.el)
+            this.el.classList.add('hide');
+    },
+    addEventListener: function () {
+        var _this = this;
+        window.addEventListener('scroll', function () {
+            var scrollY = window.scrollY || document.documentElement.scrollTop;
+            scrollY > 700 && document.documentElement.clientWidth <= 1180 ? _this.show() : _this.hide();
+        });
+    }
+};
+btnUp.addEventListener();
+burgerBTN.addEventListener('click', function () {
+    burgerMenu.classList.toggle('open');
+    burgerBTN.classList.toggle('open');
+});
+burgerMenuItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+        burgerMenu.classList.toggle('open');
+        burgerBTN.classList.toggle('open');
+    });
+});
+function deleteFile(index) {
+    formValues.files.splice(index, 1);
+    renderFiles(formValues.files);
+    if (!formValues.files.length) {
+        filesLabel === null || filesLabel === void 0 ? void 0 : filesLabel.classList.remove('checked');
+    }
+}
