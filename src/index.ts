@@ -1,41 +1,56 @@
 const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.contacts-input');
 const labels: NodeListOf<HTMLLabelElement> = document.querySelectorAll('.contacts-label');
-const fileInput: HTMLInputElement = document.querySelector('.contacts-file-input') as HTMLInputElement;
-const submitBTN: HTMLElement = document.querySelector('.form-btn') as HTMLElement;
-const nameInput: HTMLInputElement = document.querySelector('#name') as HTMLInputElement;
-const telInput: HTMLInputElement = document.querySelector('#tel') as HTMLInputElement;
-const emailInput: HTMLInputElement = document.querySelector('#email') as HTMLInputElement;
-const aboutInput: HTMLInputElement = document.querySelector('#about') as HTMLInputElement;
-const checkbox: HTMLInputElement = document.querySelector('#checkbox') as HTMLInputElement;
-const nameInputContainer: HTMLElement = document.querySelector('.name') as HTMLElement;
-const telInputContainer: HTMLElement = document.querySelector('.tel') as HTMLElement;
-const emailInputContainer: HTMLElement = document.querySelector('.email') as HTMLElement;
-const aboutInputContainer: HTMLElement = document.querySelector('.about') as HTMLElement;
-const checkboxContainer: HTMLElement = document.querySelector('.checkbox') as HTMLElement;
-const fileInputContainer: HTMLElement = document.querySelector('.contacts-file-container') as HTMLElement;
+const fileInput: HTMLInputElement = document.querySelector('.contacts-file-input')!;
+const submitBTN: HTMLElement = document.querySelector('.form-btn')!;
+const nameInput: HTMLInputElement = document.querySelector('#name')!;
+const telInput: HTMLInputElement = document.querySelector('#tel')!;
+const emailInput: HTMLInputElement = document.querySelector('#email')!;
+const aboutInput: HTMLInputElement = document.querySelector('#about')!;
+const checkbox: HTMLInputElement = document.querySelector('#checkbox')!;
+const nameInputContainer: HTMLElement = document.querySelector('.name')!;
+const telInputContainer: HTMLElement = document.querySelector('.tel')!;
+const emailInputContainer: HTMLElement = document.querySelector('.email')!;
+const aboutInputContainer: HTMLElement = document.querySelector('.about')!;
+const checkboxContainer: HTMLElement = document.querySelector('.checkbox')!;
+const fileInputContainer: HTMLElement = document.querySelector('.contacts-file-container')!;
 const modalCloseBtns: NodeListOf<HTMLElement> = document.querySelectorAll('.modal-close');
-const modalBCG: HTMLElement  = document.querySelector('.modal-background') as HTMLElement;
-const modal: HTMLElement  = document.querySelector('.modal') as HTMLElement;
-const modalCaptionEl: HTMLElement  = document.querySelector('.modal-caption') as HTMLElement;
-const modalTextEl: HTMLElement  = document.querySelector('.modal-text') as HTMLElement;
-const agreeLink: HTMLElement  = document.querySelector('#agreement-link') as HTMLElement;
-const burgerBTN: HTMLElement = document.querySelector('.burger-img-conteiner') as HTMLElement;
-const burgerMenu: HTMLElement = document.querySelector('.nav-burger') as HTMLElement;
+const modalBCG: HTMLElement  = document.querySelector('.modal-background')!;
+const modal: HTMLElement  = document.querySelector('.modal')!;
+const modalCaptionEl: HTMLElement  = document.querySelector('.modal-caption')!;
+const modalTextEl: HTMLElement  = document.querySelector('.modal-text')!;
+const agreeLink: HTMLElement  = document.querySelector('#agreement-link')!;
+const burgerBTN: HTMLElement = document.querySelector('.burger-img-conteiner')!;
+const burgerMenu: HTMLElement = document.querySelector('.nav-burger')!;
 const burgerMenuItems: NodeListOf<HTMLElement> = document.querySelectorAll('#header .nav-burger-items');
-const fileNamesContainer = document.querySelector('.files-name-container');
-const filesLabel = document.querySelector('.contacts-file-label');
+const fileNamesContainer: HTMLElement = document.querySelector('.files-name-container')!;
+const filesLabel: HTMLElement = document.querySelector('.contacts-file-label')!;
 
-const errors = {
+const errors: Record<string, string> = {
   emptyInput: 'Поле должно быть заполнено',
   toShortName: 'Имя должно содержать не менее 3 символов',
   toShortAbout: 'Описание должно содержать не менее 3 символов',
   toShortEmail: 'E-mail должен содержать не менее 3 символов',
   toShortTel: 'Номер телефона должен состоять из 12 символов',
   invalidEmail: 'Введен неверный адрес электронной почты',
-  isNotChecked: 'Необходимо Ваше согласие',
+  isNotChecked: 'Необходимо Ваше согласие на обработку персональных данных',
 }
 
-const modalContent = {
+interface Content {
+  succes: {
+    caption: string,
+    text: string,
+  },
+  error: {
+    caption: string,
+    text: string,
+  },
+  agreement: {
+    caption: string,
+    text: string,
+  },
+}
+
+const modalContent: Content = {
   succes: {
     caption: 'Ваша заявка успешно отправлена!',
     text: 'В ближайшее время мы отправим ответ на Ваш запрос на указанную почту или позвоним по номеру телефона.'
@@ -90,7 +105,9 @@ const modalContent = {
   }
 }
 
-const formValues: {name: string, tel: string, email: string, about: string, files: any[], checkbox: boolean} = {
+interface FormFile {fileName: string, fileSize: number};
+
+const formValues: {name: string, tel: string, email: string, about: string, files: FormFile[], checkbox: boolean} = {
   name: '',
   tel: '',
   email: '',
@@ -99,27 +116,27 @@ const formValues: {name: string, tel: string, email: string, about: string, file
   checkbox: false,
 }
 
-inputs.forEach((input, index: number) => {
-  input.addEventListener('click', () => {
+inputs.forEach((input: HTMLInputElement, index: number): void => {
+  input.addEventListener('click', (): void => {
     labels[index].classList.add('label-end');
   });
 })
 
-inputs.forEach((input, index: number) => {
-  input.addEventListener('focus', () => {
+inputs.forEach((input: HTMLInputElement, index: number): void => {
+  input.addEventListener('focus', (): void => {
     labels[index].classList.add('label-end');
   });
 })
 
-inputs.forEach((input, index: number) => {
-  input.addEventListener('blur', () => {
+inputs.forEach((input: HTMLInputElement, index: number): void => {
+  input.addEventListener('blur', (): void => {
     if (!input.value.length) {
       labels[index].classList.remove('label-end');
     }    
   });
 })
 
-fileInput.addEventListener('change', function() {
+fileInput.addEventListener('change', function():void {
   removeError(fileInputContainer);
   if (this && this.files) {
     formValues.files = [];
@@ -131,52 +148,52 @@ fileInput.addEventListener('change', function() {
   filesLabel?.classList.add('checked');
 });
 
-function renderFiles(files: {fileName: string, fileSize: number}[]) {
+function renderFiles(files: FormFile[]): void {
   if (fileNamesContainer) {
     let filesHTMLText = '';
     for (let i = 0; i < files.length; i++) {
       filesHTMLText += `<div class="file-name-item">${files[i].fileName} (${Math.round(files[i].fileSize / 1024)} КВ)<div class="file-name-delete"></div></div>`;
     }
     fileNamesContainer.innerHTML = filesHTMLText;
-    const fileDeleteBTNs = document.querySelectorAll('.file-name-delete');
-    fileDeleteBTNs.forEach((btn, index) => {
-      btn.addEventListener('click', () => deleteFile(index));
+    const fileDeleteBTNs: NodeListOf<HTMLElement> = document.querySelectorAll('.file-name-delete');
+    fileDeleteBTNs.forEach((btn: HTMLElement, index: number): void => {
+      btn.addEventListener('click', (): void => deleteFile(index));
     })
   }
 }
 
-function showError(container: HTMLElement, errorText: string) {
+function showError(container: HTMLElement, errorText: string): void {
   removeError(container);
   container.classList.add('error');
-  const error  = document.createElement('span');
+  const error: HTMLElement  = document.createElement('span');
   error.classList.add('input-error');
   error.innerHTML = errorText;
   container.appendChild(error);
 }
 
-function removeError(container: HTMLElement) {
-  const errors= container.querySelectorAll('.input-error');
+function removeError(container: HTMLElement): void {
+  const errors: NodeListOf<HTMLElement> = container.querySelectorAll('.input-error');
   if (errors) {
-    errors.forEach((error) => {
+    errors.forEach((error: HTMLElement): void => {
       container.removeChild(error);
       container.classList.remove('error');
     })
   };
 }
 
-function validateTel(event: any) {
+function validateTel(event: Event): void {
   const pattern: string = "+375 (__) ___-__-__";
-  const def = pattern.replace(/\D/g, '');
-
-  let val = event.target.value.replace(/\D/g, '');
+  const def: string = pattern.replace(/\D/g, '');
+  const element = event.target as HTMLInputElement;
+  let val: string = element.value.replace(/\D/g, '');
   let i = 0;
 
   if (def.length >= val.length) val = def;
 
-  const newVal = pattern.replace(/./g, function (char) {
+  const newVal: string = pattern.replace(/./g, (char: string): string => {
     return /[_\d]/.test(char) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : char;
   });
-  event.target.value = newVal;
+  element.value = newVal;
 
   if (val.length < 12) {
     formValues.tel = val;
@@ -186,55 +203,57 @@ function validateTel(event: any) {
   }
 }
 
-telInput.addEventListener('click', (event) => validateTel(event));
-telInput.addEventListener('change', (event) => validateTel(event));
-telInput.addEventListener('input', (event) => validateTel(event));
+telInput.addEventListener('click', (event: Event): void => validateTel(event));
+telInput.addEventListener('change', (event: Event): void => validateTel(event));
+telInput.addEventListener('input', (event: Event): void => validateTel(event));
 
-function validateEmail(event: any) {
+function validateEmail(event: Event): void {
   const regex = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
-  
-  if (regex.test(event.target.value)) {
-    formValues.email = event.target.value;
+  const element = event.target as HTMLInputElement;
+  if (regex.test(element.value)) {
+    formValues.email = element.value;
     removeError(emailInputContainer);
   } else {
     showError(emailInputContainer, errors.invalidEmail);
   }
 }
 
-emailInput.addEventListener('change', (event: any) => validateEmail(event));
+emailInput.addEventListener('change', (event: Event): void => validateEmail(event));
 
-nameInput.addEventListener('change', (event: any) => {
-  if (event.target.value.length < 3) {
+nameInput.addEventListener('change', (event: Event): void => {
+  const element = event.target as HTMLInputElement;
+  if (element.value.length < 3) {
     showError(nameInputContainer, errors.toShortName);
   } else {
-    formValues.name = event.target.value;
+    formValues.name = element.value;
     removeError(nameInputContainer)
   }
 });
 
-aboutInput.addEventListener('change', (event: any) => {
-  if (event.target.value.length < 3) {
+aboutInput.addEventListener('change', (event: Event): void => {
+  const element = event.target as HTMLInputElement;
+  if (element.value.length < 3) {
     showError(aboutInputContainer, errors.toShortAbout);
   } else {
-    formValues.about = event.target.value;
+    formValues.about = element.value;
     removeError(aboutInputContainer)
   }
 });
 
-checkbox.addEventListener('change', (event: any) => {
+checkbox.addEventListener('change', (event: Event): void => {
+  const element = event.target as HTMLInputElement;
   removeError(checkboxContainer);
-  formValues.checkbox = event.target.checked;
+  formValues.checkbox = element.checked;
 });
 
-submitBTN.addEventListener('click', () => {
+submitBTN.addEventListener('click', (): void => {
   if (!formValues.name.length) showError(nameInputContainer, errors.toShortName);
   if (!formValues.tel.length) showError(telInputContainer, errors.toShortTel);
   if (!formValues.email.length) showError(emailInputContainer, errors.toShortEmail);
   if (!formValues.about.length) showError(aboutInputContainer, errors.toShortAbout);
-  if (!formValues.files.length) showError(fileInputContainer, errors.toShortAbout);
   if (!formValues.checkbox) showError(checkboxContainer, errors.isNotChecked);
 
-  const errorsOnPage = document.querySelectorAll('.input-error');
+  const errorsOnPage: NodeListOf<HTMLElement> = document.querySelectorAll('.input-error');
 
   if (!errorsOnPage.length) {
     const randomNumber: number = getRandomNumber();
@@ -253,7 +272,7 @@ function getRandomNumber(): number {
   return Math.random();
 }
 
-function modalOpen(type: 'succes'|'error'|'agreement') {
+function modalOpen(type: 'succes'|'error'|'agreement'): void {
   modal?.classList.remove('agreement');
 
   modalCaptionEl!.innerHTML = modalContent[type].caption;
@@ -263,58 +282,72 @@ function modalOpen(type: 'succes'|'error'|'agreement') {
   }
 }
 
-function toogleModal() {
+function toogleModal(): void {
   modalBCG!.classList.toggle('visible');
 }
 
-modalCloseBtns.forEach((btn) => {
-  btn.addEventListener('click', (event) => {
+modalCloseBtns.forEach((btn: HTMLElement): void => {
+  btn.addEventListener('click', (event: Event): void => {
     event.stopPropagation();
     toogleModal();
   });
 })
 
-modalBCG?.addEventListener('click', (event) => {
+modalBCG?.addEventListener('click', (event: Event): void => {
   event.stopPropagation();
   toogleModal();
 });
 
-agreeLink!.addEventListener('click', () => {
+agreeLink!.addEventListener('click', (): void => {
   modalOpen('agreement');
   toogleModal();
 });
 
-const btnUp = {
-  el: document.querySelector('.top-btn'),
-  show() {
+interface IBTNUp {
+  el: HTMLElement;
+  show(): void;
+  hide(): void;
+  addEventListener(): void;
+}
+
+const btnUp: IBTNUp = {
+  el: document.querySelector('.top-btn')!,
+  show(): void {
     if (this.el) this.el.classList.remove('hide');
   },
-  hide() {
+  hide(): void {
     if (this.el) this.el.classList.add('hide');
   },
-  addEventListener() {
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      scrollY > 700 && document.documentElement.clientWidth <= 1180 ? this.show() : this.hide();
+  addEventListener(): void {
+    window.addEventListener('scroll', (): void => {
+      const scrollY: number = window.scrollY || document.documentElement.scrollTop;
+      scrollY && document.documentElement.clientWidth <= 1180 ? this.show() : this.hide();
+      const RestToBottom: number = document.documentElement.scrollHeight - scrollY - document.documentElement.clientHeight;
+      if (RestToBottom < 210) {
+        this.el.style.bottom = `${242 - RestToBottom}px`;
+        console.log(242 - RestToBottom);
+      } else {
+        this.el.style.bottom = '32px';
+      }
     });
   }
 }
 
 btnUp.addEventListener();
 
-burgerBTN.addEventListener('click', () => {
+burgerBTN.addEventListener('click', (): void => {
   burgerMenu.classList.toggle('open');
   burgerBTN.classList.toggle('open');
 });
 
-burgerMenuItems.forEach((item) => {
-  item.addEventListener('click', () => {
+burgerMenuItems.forEach((item: HTMLElement): void => {
+  item.addEventListener('click', (): void => {
     burgerMenu.classList.toggle('open');
     burgerBTN.classList.toggle('open');
   })
 });
 
-function deleteFile(index: number) {
+function deleteFile(index: number): void {
   formValues.files.splice(index, 1);
   renderFiles(formValues.files);
   if (!formValues.files.length) {
