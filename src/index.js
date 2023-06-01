@@ -1,35 +1,35 @@
-var inputs = document.querySelectorAll('.contacts-input');
-var labels = document.querySelectorAll('.contacts-label');
-var fileInput = document.querySelector('.contacts-file-input');
+var inputs = document.querySelectorAll('.input-container__input');
+var labels = document.querySelectorAll('.input-container__label');
+var fileInput = document.querySelector('.file-input-container__input');
 var submitBTN = document.querySelector('.form-btn');
 var nameInput = document.querySelector('#name');
 var telInput = document.querySelector('#tel');
 var emailInput = document.querySelector('#email');
 var aboutInput = document.querySelector('#about');
-var checkbox = document.querySelector('#checkbox');
-var nameInputContainer = document.querySelector('.name');
-var telInputContainer = document.querySelector('.tel');
-var emailInputContainer = document.querySelector('.email');
-var aboutInputContainer = document.querySelector('.about');
-var checkboxContainer = document.querySelector('.checkbox');
-var fileInputContainer = document.querySelector('.contacts-file-container');
+var agreemrntInput = document.querySelector('#checkbox');
+var nameInputContainer = document.querySelector('.input-container_name');
+var telInputContainer = document.querySelector('.input-container_tel');
+var emailInputContainer = document.querySelector('.input-container_email');
+var aboutInputContainer = document.querySelector('.input-container_about');
+var checkboxContainer = document.querySelector('.agreement-container');
+var fileInputContainer = document.querySelector('.file-input-container');
 var modalCloseBtns = document.querySelectorAll('.modal-close');
 var modalBCG = document.querySelector('.modal-background');
 var modal = document.querySelector('.modal');
 var modalCaptionEl = document.querySelector('.modal-caption');
 var modalTextEl = document.querySelector('.modal-text');
 var agreeLink = document.querySelector('#agreement-link');
-var burgerBTN = document.querySelector('.burger-img-conteiner');
-var burgerMenu = document.querySelector('.nav-burger');
-var burgerMenuItems = document.querySelectorAll('#header .nav-burger-items');
-var fileNamesContainer = document.querySelector('.files-name-container');
-var filesLabel = document.querySelector('.contacts-file-label');
+var menuBTN = document.querySelector('.nav-btn');
+var menu = document.querySelector('.nav');
+var menuItems = document.querySelectorAll('#header .nav-list__items');
+var filesContainer = document.querySelector('.files-container');
+var filesLabel = document.querySelector('.file-input-container__label');
 var errors = {
     emptyInput: 'Поле должно быть заполнено',
-    toShortName: 'Имя должно содержать не менее 3 символов',
-    toShortAbout: 'Описание должно содержать не менее 3 символов',
-    toShortEmail: 'E-mail должен содержать не менее 3 символов',
-    toShortTel: 'Номер телефона должен состоять из 12 символов',
+    tooShortName: 'Имя должно содержать не менее 3 символов',
+    tooShortAbout: 'Описание должно содержать не менее 3 символов',
+    tooShortEmail: 'E-mail должен содержать не менее 3 символов',
+    tooShortTel: 'Номер телефона должен состоять из 12 символов',
     invalidEmail: 'Введен неверный адрес электронной почты',
     isNotChecked: 'Необходимо Ваше согласие на обработку персональных данных',
 };
@@ -58,18 +58,18 @@ var formValues = {
 };
 inputs.forEach(function (input, index) {
     input.addEventListener('click', function () {
-        labels[index].classList.add('label-end');
+        labels[index].classList.add('input-container__label_end');
     });
 });
 inputs.forEach(function (input, index) {
     input.addEventListener('focus', function () {
-        labels[index].classList.add('label-end');
+        labels[index].classList.add('input-container__label_end');
     });
 });
 inputs.forEach(function (input, index) {
     input.addEventListener('blur', function () {
         if (!input.value.length) {
-            labels[index].classList.remove('label-end');
+            labels[index].classList.remove('input-container__label_end');
         }
     });
 });
@@ -82,15 +82,15 @@ fileInput.addEventListener('change', function () {
         }
         renderFiles(formValues.files);
     }
-    filesLabel === null || filesLabel === void 0 ? void 0 : filesLabel.classList.add('checked');
+    filesLabel === null || filesLabel === void 0 ? void 0 : filesLabel.classList.add('file-input-container__label_checked');
 });
 function renderFiles(files) {
-    if (fileNamesContainer) {
+    if (filesContainer) {
         var filesHTMLText = '';
         for (var i = 0; i < files.length; i++) {
             filesHTMLText += "<div class=\"file-name-item\">".concat(files[i].fileName, " (").concat(Math.round(files[i].fileSize / 1024), " \u041A\u0412)<div class=\"file-name-delete\"></div></div>");
         }
-        fileNamesContainer.innerHTML = filesHTMLText;
+        filesContainer.innerHTML = filesHTMLText;
         var fileDeleteBTNs = document.querySelectorAll('.file-name-delete');
         fileDeleteBTNs.forEach(function (btn, index) {
             btn.addEventListener('click', function () { return deleteFile(index); });
@@ -99,7 +99,7 @@ function renderFiles(files) {
 }
 function showError(container, errorText) {
     removeError(container);
-    container.classList.add('error');
+    container.classList.add('input-container_error');
     var error = document.createElement('span');
     error.classList.add('input-error');
     error.innerHTML = errorText;
@@ -110,7 +110,7 @@ function removeError(container) {
     if (errors) {
         errors.forEach(function (error) {
             container.removeChild(error);
-            container.classList.remove('error');
+            container.classList.remove('input-container_error');
         });
     }
     ;
@@ -129,7 +129,7 @@ function validateTel(event) {
     element.value = newVal;
     if (val.length < 12) {
         formValues.tel = val;
-        showError(telInputContainer, errors.toShortTel);
+        showError(telInputContainer, errors.tooShortTel);
     }
     else {
         removeError(telInputContainer);
@@ -153,7 +153,7 @@ emailInput.addEventListener('change', function (event) { return validateEmail(ev
 nameInput.addEventListener('change', function (event) {
     var element = event.target;
     if (element.value.length < 3) {
-        showError(nameInputContainer, errors.toShortName);
+        showError(nameInputContainer, errors.tooShortName);
     }
     else {
         formValues.name = element.value;
@@ -163,27 +163,27 @@ nameInput.addEventListener('change', function (event) {
 aboutInput.addEventListener('change', function (event) {
     var element = event.target;
     if (element.value.length < 3) {
-        showError(aboutInputContainer, errors.toShortAbout);
+        showError(aboutInputContainer, errors.tooShortAbout);
     }
     else {
         formValues.about = element.value;
         removeError(aboutInputContainer);
     }
 });
-checkbox.addEventListener('change', function (event) {
+agreemrntInput.addEventListener('change', function (event) {
     var element = event.target;
     removeError(checkboxContainer);
     formValues.checkbox = element.checked;
 });
 submitBTN.addEventListener('click', function () {
     if (!formValues.name.length)
-        showError(nameInputContainer, errors.toShortName);
+        showError(nameInputContainer, errors.tooShortName);
     if (!formValues.tel.length)
-        showError(telInputContainer, errors.toShortTel);
+        showError(telInputContainer, errors.tooShortTel);
     if (!formValues.email.length)
-        showError(emailInputContainer, errors.toShortEmail);
+        showError(emailInputContainer, errors.tooShortEmail);
     if (!formValues.about.length)
-        showError(aboutInputContainer, errors.toShortAbout);
+        showError(aboutInputContainer, errors.tooShortAbout);
     if (!formValues.checkbox)
         showError(checkboxContainer, errors.isNotChecked);
     var errorsOnPage = document.querySelectorAll('.input-error');
@@ -223,7 +223,8 @@ modalBCG === null || modalBCG === void 0 ? void 0 : modalBCG.addEventListener('c
     event.stopPropagation();
     toogleModal();
 });
-agreeLink.addEventListener('click', function () {
+agreeLink.addEventListener('click', function (event) {
+    event.stopPropagation();
     modalOpen('agreement');
     toogleModal();
 });
@@ -231,11 +232,11 @@ var btnUp = {
     el: document.querySelector('.top-btn'),
     show: function () {
         if (this.el)
-            this.el.classList.remove('hide');
+            this.el.classList.remove('top-btn_hide');
     },
     hide: function () {
         if (this.el)
-            this.el.classList.add('hide');
+            this.el.classList.add('top-btn_hide');
     },
     addEventListener: function () {
         var _this = this;
@@ -254,20 +255,20 @@ var btnUp = {
     }
 };
 btnUp.addEventListener();
-burgerBTN.addEventListener('click', function () {
-    burgerMenu.classList.toggle('open');
-    burgerBTN.classList.toggle('open');
+menuBTN.addEventListener('click', function () {
+    menu.classList.toggle('nav_open');
+    menuBTN.classList.toggle('nav-btn_open');
 });
-burgerMenuItems.forEach(function (item) {
+menuItems.forEach(function (item) {
     item.addEventListener('click', function () {
-        burgerMenu.classList.toggle('open');
-        burgerBTN.classList.toggle('open');
+        menu.classList.toggle('nav_open');
+        menuBTN.classList.toggle('nav-btn_open');
     });
 });
 function deleteFile(index) {
     formValues.files.splice(index, 1);
     renderFiles(formValues.files);
     if (!formValues.files.length) {
-        filesLabel === null || filesLabel === void 0 ? void 0 : filesLabel.classList.remove('checked');
+        filesLabel === null || filesLabel === void 0 ? void 0 : filesLabel.classList.remove('file-input-container__label_checked');
     }
 }

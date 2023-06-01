@@ -1,36 +1,36 @@
-const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.contacts-input');
-const labels: NodeListOf<HTMLLabelElement> = document.querySelectorAll('.contacts-label');
-const fileInput: HTMLInputElement = document.querySelector('.contacts-file-input')!;
+const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-container__input');
+const labels: NodeListOf<HTMLLabelElement> = document.querySelectorAll('.input-container__label');
+const fileInput: HTMLInputElement = document.querySelector('.file-input-container__input')!;
 const submitBTN: HTMLElement = document.querySelector('.form-btn')!;
 const nameInput: HTMLInputElement = document.querySelector('#name')!;
 const telInput: HTMLInputElement = document.querySelector('#tel')!;
 const emailInput: HTMLInputElement = document.querySelector('#email')!;
 const aboutInput: HTMLInputElement = document.querySelector('#about')!;
-const checkbox: HTMLInputElement = document.querySelector('#checkbox')!;
-const nameInputContainer: HTMLElement = document.querySelector('.name')!;
-const telInputContainer: HTMLElement = document.querySelector('.tel')!;
-const emailInputContainer: HTMLElement = document.querySelector('.email')!;
-const aboutInputContainer: HTMLElement = document.querySelector('.about')!;
-const checkboxContainer: HTMLElement = document.querySelector('.checkbox')!;
-const fileInputContainer: HTMLElement = document.querySelector('.contacts-file-container')!;
+const agreemrntInput: HTMLInputElement = document.querySelector('#checkbox')!;
+const nameInputContainer: HTMLElement = document.querySelector('.input-container_name')!;
+const telInputContainer: HTMLElement = document.querySelector('.input-container_tel')!;
+const emailInputContainer: HTMLElement = document.querySelector('.input-container_email')!;
+const aboutInputContainer: HTMLElement = document.querySelector('.input-container_about')!;
+const checkboxContainer: HTMLElement = document.querySelector('.agreement-container')!;
+const fileInputContainer: HTMLElement = document.querySelector('.file-input-container')!;
 const modalCloseBtns: NodeListOf<HTMLElement> = document.querySelectorAll('.modal-close');
 const modalBCG: HTMLElement  = document.querySelector('.modal-background')!;
 const modal: HTMLElement  = document.querySelector('.modal')!;
 const modalCaptionEl: HTMLElement  = document.querySelector('.modal-caption')!;
 const modalTextEl: HTMLElement  = document.querySelector('.modal-text')!;
 const agreeLink: HTMLElement  = document.querySelector('#agreement-link')!;
-const burgerBTN: HTMLElement = document.querySelector('.burger-img-conteiner')!;
-const burgerMenu: HTMLElement = document.querySelector('.nav-burger')!;
-const burgerMenuItems: NodeListOf<HTMLElement> = document.querySelectorAll('#header .nav-burger-items');
-const fileNamesContainer: HTMLElement = document.querySelector('.files-name-container')!;
-const filesLabel: HTMLElement = document.querySelector('.contacts-file-label')!;
+const menuBTN: HTMLElement = document.querySelector('.nav-btn')!;
+const menu: HTMLElement = document.querySelector('.nav')!;
+const menuItems: NodeListOf<HTMLElement> = document.querySelectorAll('#header .nav-list__items');
+const filesContainer: HTMLElement = document.querySelector('.files-container')!;
+const filesLabel: HTMLElement = document.querySelector('.file-input-container__label')!;
 
 const errors: Record<string, string> = {
   emptyInput: 'Поле должно быть заполнено',
-  toShortName: 'Имя должно содержать не менее 3 символов',
-  toShortAbout: 'Описание должно содержать не менее 3 символов',
-  toShortEmail: 'E-mail должен содержать не менее 3 символов',
-  toShortTel: 'Номер телефона должен состоять из 12 символов',
+  tooShortName: 'Имя должно содержать не менее 3 символов',
+  tooShortAbout: 'Описание должно содержать не менее 3 символов',
+  tooShortEmail: 'E-mail должен содержать не менее 3 символов',
+  tooShortTel: 'Номер телефона должен состоять из 12 символов',
   invalidEmail: 'Введен неверный адрес электронной почты',
   isNotChecked: 'Необходимо Ваше согласие на обработку персональных данных',
 }
@@ -118,20 +118,20 @@ const formValues: {name: string, tel: string, email: string, about: string, file
 
 inputs.forEach((input: HTMLInputElement, index: number): void => {
   input.addEventListener('click', (): void => {
-    labels[index].classList.add('label-end');
+    labels[index].classList.add('input-container__label_end');
   });
 })
 
 inputs.forEach((input: HTMLInputElement, index: number): void => {
   input.addEventListener('focus', (): void => {
-    labels[index].classList.add('label-end');
+    labels[index].classList.add('input-container__label_end');
   });
 })
 
 inputs.forEach((input: HTMLInputElement, index: number): void => {
   input.addEventListener('blur', (): void => {
     if (!input.value.length) {
-      labels[index].classList.remove('label-end');
+      labels[index].classList.remove('input-container__label_end');
     }    
   });
 })
@@ -145,16 +145,16 @@ fileInput.addEventListener('change', function():void {
     }
     renderFiles(formValues.files);
   }
-  filesLabel?.classList.add('checked');
+  filesLabel?.classList.add('file-input-container__label_checked');
 });
 
 function renderFiles(files: FormFile[]): void {
-  if (fileNamesContainer) {
+  if (filesContainer) {
     let filesHTMLText = '';
     for (let i = 0; i < files.length; i++) {
       filesHTMLText += `<div class="file-name-item">${files[i].fileName} (${Math.round(files[i].fileSize / 1024)} КВ)<div class="file-name-delete"></div></div>`;
     }
-    fileNamesContainer.innerHTML = filesHTMLText;
+    filesContainer.innerHTML = filesHTMLText;
     const fileDeleteBTNs: NodeListOf<HTMLElement> = document.querySelectorAll('.file-name-delete');
     fileDeleteBTNs.forEach((btn: HTMLElement, index: number): void => {
       btn.addEventListener('click', (): void => deleteFile(index));
@@ -164,7 +164,7 @@ function renderFiles(files: FormFile[]): void {
 
 function showError(container: HTMLElement, errorText: string): void {
   removeError(container);
-  container.classList.add('error');
+  container.classList.add('input-container_error');
   const error: HTMLElement  = document.createElement('span');
   error.classList.add('input-error');
   error.innerHTML = errorText;
@@ -176,7 +176,7 @@ function removeError(container: HTMLElement): void {
   if (errors) {
     errors.forEach((error: HTMLElement): void => {
       container.removeChild(error);
-      container.classList.remove('error');
+      container.classList.remove('input-container_error');
     })
   };
 }
@@ -197,7 +197,7 @@ function validateTel(event: Event): void {
 
   if (val.length < 12) {
     formValues.tel = val;
-    showError(telInputContainer, errors.toShortTel);
+    showError(telInputContainer, errors.tooShortTel);
   } else {
     removeError(telInputContainer);
   }
@@ -223,7 +223,7 @@ emailInput.addEventListener('change', (event: Event): void => validateEmail(even
 nameInput.addEventListener('change', (event: Event): void => {
   const element = event.target as HTMLInputElement;
   if (element.value.length < 3) {
-    showError(nameInputContainer, errors.toShortName);
+    showError(nameInputContainer, errors.tooShortName);
   } else {
     formValues.name = element.value;
     removeError(nameInputContainer)
@@ -233,24 +233,24 @@ nameInput.addEventListener('change', (event: Event): void => {
 aboutInput.addEventListener('change', (event: Event): void => {
   const element = event.target as HTMLInputElement;
   if (element.value.length < 3) {
-    showError(aboutInputContainer, errors.toShortAbout);
+    showError(aboutInputContainer, errors.tooShortAbout);
   } else {
     formValues.about = element.value;
     removeError(aboutInputContainer)
   }
 });
 
-checkbox.addEventListener('change', (event: Event): void => {
+agreemrntInput.addEventListener('change', (event: Event): void => {
   const element = event.target as HTMLInputElement;
   removeError(checkboxContainer);
   formValues.checkbox = element.checked;
 });
 
 submitBTN.addEventListener('click', (): void => {
-  if (!formValues.name.length) showError(nameInputContainer, errors.toShortName);
-  if (!formValues.tel.length) showError(telInputContainer, errors.toShortTel);
-  if (!formValues.email.length) showError(emailInputContainer, errors.toShortEmail);
-  if (!formValues.about.length) showError(aboutInputContainer, errors.toShortAbout);
+  if (!formValues.name.length) showError(nameInputContainer, errors.tooShortName);
+  if (!formValues.tel.length) showError(telInputContainer, errors.tooShortTel);
+  if (!formValues.email.length) showError(emailInputContainer, errors.tooShortEmail);
+  if (!formValues.about.length) showError(aboutInputContainer, errors.tooShortAbout);
   if (!formValues.checkbox) showError(checkboxContainer, errors.isNotChecked);
 
   const errorsOnPage: NodeListOf<HTMLElement> = document.querySelectorAll('.input-error');
@@ -298,7 +298,8 @@ modalBCG?.addEventListener('click', (event: Event): void => {
   toogleModal();
 });
 
-agreeLink!.addEventListener('click', (): void => {
+agreeLink!.addEventListener('click', (event: Event): void => {
+  event.stopPropagation();
   modalOpen('agreement');
   toogleModal();
 });
@@ -313,10 +314,10 @@ interface IBTNUp {
 const btnUp: IBTNUp = {
   el: document.querySelector('.top-btn')!,
   show(): void {
-    if (this.el) this.el.classList.remove('hide');
+    if (this.el) this.el.classList.remove('top-btn_hide');
   },
   hide(): void {
-    if (this.el) this.el.classList.add('hide');
+    if (this.el) this.el.classList.add('top-btn_hide');
   },
   addEventListener(): void {
     window.addEventListener('scroll', (): void => {
@@ -335,15 +336,15 @@ const btnUp: IBTNUp = {
 
 btnUp.addEventListener();
 
-burgerBTN.addEventListener('click', (): void => {
-  burgerMenu.classList.toggle('open');
-  burgerBTN.classList.toggle('open');
+menuBTN.addEventListener('click', (): void => {
+  menu.classList.toggle('nav_open');
+  menuBTN.classList.toggle('nav-btn_open');
 });
 
-burgerMenuItems.forEach((item: HTMLElement): void => {
+menuItems.forEach((item: HTMLElement): void => {
   item.addEventListener('click', (): void => {
-    burgerMenu.classList.toggle('open');
-    burgerBTN.classList.toggle('open');
+    menu.classList.toggle('nav_open');
+    menuBTN.classList.toggle('nav-btn_open');
   })
 });
 
@@ -351,6 +352,6 @@ function deleteFile(index: number): void {
   formValues.files.splice(index, 1);
   renderFiles(formValues.files);
   if (!formValues.files.length) {
-    filesLabel?.classList.remove('checked');
+    filesLabel?.classList.remove('file-input-container__label_checked');
   }
 }

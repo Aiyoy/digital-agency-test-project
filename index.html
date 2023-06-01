@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css">
-  <!-- <link rel="shortcut icon" href="assets/favicon.png" /> -->
+  <link rel="shortcut icon" href="./assets/logo.svg" />
   <link href="https://fonts.cdnfonts.com/css/sf-ui-display" rel="stylesheet">
   <title>Digital agency</title>
 </head>
@@ -16,30 +16,30 @@
       <div class="grid-container">
         <div class="brand-name">Brand&agency</div>
         <div class="flex-container">
-          <div class="flex-container header-flex-container">
-            <a class="leave-link" href="#contacts">Оставить заявку</a>
+          <div class="flex-container header-container">
+            <a class="header-container__link" href="#contacts">Оставить заявку</a>
             <div>+375 29 267 79 99</div>
           </div>
-          <nav class="nav-burger">
-            <ul class="nav-burger-list">
-                <li class="nav-burger-items">
+          <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-list__items">
                     <a href="#main">Главная</a>
                 </li>
-                <li class="nav-burger-items">
+                <li class="nav-list__items">
                   <a href="#values">Наши ценности</a>
                 </li>
-                <li class="nav-burger-items">
+                <li class="nav-list__items">
                     <a href="#services">Услуги</a>
                 </li>
-                <li class="nav-burger-items">
+                <li class="nav-list__items">
                   <a href="#cases">Кейсы</a>
                 </li>
-                <li class="nav-burger-items">
+                <li class="nav-list__items">
                   <a href="#contacts">Контакты</a>
                 </li>
               </ul>
           </nav>
-          <div class="burger-img-conteiner">
+          <div class="nav-btn">
             <span></span>
           </div>
         </div>
@@ -49,14 +49,14 @@
         <h1 class="caption">агентство</h1>
       </div>
       <div class="grid-container">
-        <div class="header-left-grid-cell">Brand&Agency – команда профессионалов, которая решает задачи бизнеса</div>
-        <div class="header-right-grid-cell">проектируем, разрабатываем сайты и приложения</div>
+        <div class="grid-container__left-col">Brand&Agency – команда профессионалов, которая решает задачи бизнеса</div>
+        <div class="grid-container__right-col">проектируем, разрабатываем сайты и приложения</div>
       </div>
     </div>
     <div class="header-img"></div>
   </header>
   <main>
-    <section class="section main-section">
+    <section class="section section_main">
       <div class="section-wrapper" id="main">
         <div class="main-banner"><span>Команда Brand&Agency сталкивается с реальными задачами бизнеса</span></div>
       </div>
@@ -69,20 +69,20 @@
           <h4 class="sub-caption">наши компетенции</h4>
         </div>
         <div class="grid-container">
-          <div>Умеем вникать <br>в бизнес-процессы.</div>
-          <div>Мы используем <br>комплексный подход.</div>
+          <div class="grid-container__left-col">Умеем вникать <br>в бизнес-процессы.</div>
+          <div class="grid-container__right-col">Мы используем <br>комплексный подход.</div>
         </div>
         <div class="grid-container">
-          <div>Улучшаем <br>взаимодействия <br>пользователя <br>с продуктом.</div>
-          <div>Наша цель — открывать <br>для бизнеса новые digital <br>решения.</div>
+          <div class="grid-container__left-col">Улучшаем <br>взаимодействия <br>пользователя <br>с продуктом.</div>
+          <div class="grid-container__right-col">Наша цель — открывать <br>для бизнеса новые digital <br>решения.</div>
         </div>
         <div class="grid-container">
-          <div>Мы всегда берем <br>на себя ответственность<br>за результат.</div>
-          <div>Тестируем гипотезы, <br>проводим тестирования.</div>
+          <div class="grid-container__left-col">Мы всегда берем <br>на себя ответственность<br>за результат.</div>
+          <div class="grid-container__right-col">Тестируем гипотезы, <br>проводим тестирования.</div>
         </div>
       </div>      
     </section>
-    <section class="section services-section">
+    <section class="section section_services">
       <div class="section-wrapper" id="services">
         <div>
           <h2 class="caption">что мы</h2>
@@ -99,7 +99,7 @@
       </div>
       <div class="services-img"></div>
     </section>
-    <section class="section cases-section">
+    <section class="section section_cases">
       <div class="section-wrapper" id="cases">
         <div>
           <h2 class="caption">кейсы</h2>
@@ -108,31 +108,31 @@
       </div>
       <div class="flex-container">
         <div class="case-item my-dent">
-          <div class="case-item-img"></div>
-          <div class="case-item-caption-container">
-            <div class="case-item-caption">My dent</div>
-            <div class="case-item-subcaption">Корпоративный сайт</div>
+          <div class="case-item__img"></div>
+          <div class="case-inner">
+            <div class="case-item__caption">My dent</div>
+            <div class="case-item__subcaption">Корпоративный сайт</div>
           </div>
         </div>
         <div class="case-item dolunts">
-          <div class="case-item-img"></div>
-          <div class="case-item-caption-container">
-            <div class="case-item-caption">Dolunts education</div>
-            <div class="case-item-subcaption">Корпоративный сайт</div>
+          <div class="case-item__img"></div>
+          <div class="case-inner">
+            <div class="case-item__caption">Dolunts education</div>
+            <div class="case-item__subcaption">Корпоративный сайт</div>
           </div>
         </div>
         <div class="case-item lounge">
-          <div class="case-item-img"></div>
-          <div class="case-item-caption-container">
-            <div class="case-item-caption">мята Lounge</div>
-            <div class="case-item-subcaption">Landing page</div>
+          <div class="case-item__img"></div>
+          <div class="case-inner">
+            <div class="case-item__caption">мята Lounge</div>
+            <div class="case-item__subcaption">Landing page</div>
           </div>
         </div>
         <div class="case-item sneakers">
-          <div class="case-item-img"></div>
-          <div class="case-item-caption-container">
-            <div class="case-item-caption">stock Sneakers</div>
-            <div class="case-item-subcaption">Интернет-магазин</div>
+          <div class="case-item__img"></div>
+          <div class="case-inner">
+            <div class="case-item__caption">stock Sneakers</div>
+            <div class="case-item__subcaption">Интернет-магазин</div>
           </div>
         </div>
       </div>
@@ -145,37 +145,37 @@
         </div>
         <form action="">
           <div class="flex-container">
-            <div class="contacts-input-container name">
-              <label class="contacts-label" for="name">Ваше имя</label>
-              <input class="contacts-input" id="name" type="text">
+            <div class="input-container input-container_name">
+              <label class="input-container__label" for="name">Ваше имя</label>
+              <input class="input-container__input" id="name" type="text">
             </div>
-            <div class="contacts-input-container tel">
-              <label class="contacts-label" for="tel">Ваш телефон</label>
-              <input class="contacts-input" id="tel" type="tel">
+            <div class="input-container input-container_tel">
+              <label class="input-container__label" for="tel">Ваш телефон</label>
+              <input class="input-container__input" id="tel" type="tel">
             </div>
-            <div class="contacts-input-container email">
-              <label class="contacts-label" for="email">Ваша почта</label>
-              <input class="contacts-input" id="email" type="email">
+            <div class="input-container input-container_email">
+              <label class="input-container__label" for="email">Ваша почта</label>
+              <input class="input-container__input" id="email" type="email">
             </div>
           </div>
-          <div class="contacts-input-container about">
-            <label class="contacts-label" for="about">Расскажите о своем проекте</label>
-            <input class="contacts-input" id="about" type="text">
+          <div class="input-container input-container_about">
+            <label class="input-container__label" for="about">Расскажите о своем проекте</label>
+            <input class="input-container__input" id="about" type="text">
           </div>
-          <div class="contacts-input-container contacts-file-container">
-            <label class="contacts-file-label" for="file">            
-              <input class="contacts-file-input" id="file" type="file" multiple>
+          <div class="input-container file-input-container">
+            <label class="file-input-container__label" for="file">            
+              <input class="file-input-container__input" id="file" type="file" multiple>
               <span>
                 Прикрепить файл
                 <span></span>
               </span>            
             </label>
-            <div class="flex-container files-name-container">
+            <div class="flex-container files-container">
             </div> 
           </div>
-          <div class="contacts-input-container checkbox">
-            <input class="contacts-checkbox-input" type="checkbox" id="checkbox">
-            <label class="contacts-checkbox-label" for="checkbox"><span><pre>Я согласен на обработку </pre><span id="agreement-link">персональных данных</span></span></label>
+          <div class="input-container agreement-container">
+            <input class="agreement-container__input" type="checkbox" id="checkbox">
+            <label class="agreement-container__label" for="checkbox"><span><pre>Я согласен на обработку </pre><span id="agreement-link">персональных данных</span></span></label>
           </div>
           <div class="form-btn">
             Отправить
@@ -183,30 +183,30 @@
         </form>
       </div>      
     </section>
-    <a class="top-btn hide" href="#"></a> 
+    <a class="top-btn top-btn_hide" href="#"></a> 
   </main>
   <footer class="section footer-section">
     <div class="section-wrapper" id="footer">
-      <nav class="nav-burger">
-        <ul class="nav-burger-list">
-            <li class="nav-burger-items">
+      <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-list__items">
                 <a href="#main">Главная</a>
             </li>
-            <li class="nav-burger-items">
+            <li class="nav-list__items">
               <a href="#values">Наши ценности</a>
             </li>
-            <li class="nav-burger-items">
+            <li class="nav-list__items">
                 <a href="#services">Услуги</a>
             </li>
-            <li class="nav-burger-items">
+            <li class="nav-list__items">
               <a href="#cases">Кейсы</a>
             </li>
-            <li class="nav-burger-items">
+            <li class="nav-list__items">
               <a href="#contacts">Контакты</a>
             </li>
           </ul>
       </nav>
-      <div class="flex-container footer-flex-container">
+      <div class="flex-container flex-container_footer">
         <div>+375 29 267 79 99</div>
         <div>diagancy@gmail.com</div>
         <div>Минск</div>
