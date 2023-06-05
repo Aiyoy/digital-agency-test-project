@@ -58,8 +58,8 @@ const modalContent: Content = {
     text: 'В ближайшее время мы отправим ответ на Ваш запрос на указанную почту или позвоним по номеру телефона.'
   },
   error: {
-    caption: 'Произошла ошибка...',
-    text: 'К сожалению, произошла ошибка отправки Вашей заявки. Попробуйте позже еще раз.'
+    caption: 'К сожалению, произошла ошибка отправки Вашей заявки',
+    text: 'Попробуйте позже еще раз или обратитесь к нам по номеру телефона +375 29 267 79 99'
   },
   agreement: {
     caption: 'Согласие на обработку персональных данных',
@@ -258,22 +258,44 @@ submitBTN.addEventListener('click', (): void => {
   const errorsOnPage: NodeListOf<HTMLElement> = document.querySelectorAll('.input-error');
 
   if (!errorsOnPage.length) {
-    toogleModalBCG();
-
-    // imitation of waiting for a response from the server
-    const sendNumber: number = getRandomNumber();
-    const delay: number = sendNumber * 1500;
-    spinner.classList.add('spinner_visible');
-    setTimeout(() => {
-      spinner.classList.remove('spinner_visible');
-      if (sendNumber < 0.7) {
-        modalOpen('succes');
-      } else {
-        modalOpen('error');
-      }
-    }, delay);
+    sendInformation();
   };
 });
+
+  // imitation of waiting for a response from the server
+function sendInformation() {
+  toogleModalBCG();
+
+  const sendNumber: number = getRandomNumber();
+  const delay: number = sendNumber * 1500;
+  spinner.classList.add('spinner_visible');
+  setTimeout(() => {
+    spinner.classList.remove('spinner_visible');
+    if (sendNumber < 0.7) {
+      modalOpen('succes');
+    } else {
+      modalOpen('error');
+    }
+  }, delay);
+}
+
+// uncomment in case of server connection
+// async function sendInformation(): Promise<void> {
+//   toogleModalBCG();
+
+//   // set the variable to valid URL
+//   const url = '';
+//   spinner.classList.add('spinner_visible');
+
+//   const respons: Response = await fetch(url);
+//   spinner.classList.remove('spinner_visible');
+
+//   if (respons.status >= 200 && respons.status <= 299) {
+//     modalOpen('succes');
+//   } else {
+//     modalOpen('error');
+//   }
+// }
 
 function getRandomNumber(): number {
   return Math.random();
