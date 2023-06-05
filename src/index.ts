@@ -18,7 +18,9 @@ const modalBCG: HTMLElement  = document.querySelector('.modal-background')!;
 const modal: HTMLElement  = document.querySelector('.modal')!;
 const modalCaptionEl: HTMLElement  = document.querySelector('.modal-caption')!;
 const modalTextEl: HTMLElement  = document.querySelector('.modal-text')!;
+const modalWrapper: HTMLElement  = document.querySelector('.modal-wrapper')!;
 const agreeLink: HTMLElement  = document.querySelector('#agreement-link')!;
+const spinner: HTMLElement  = document.querySelector('.spinner')!;
 const menuBTN: HTMLElement = document.querySelector('.nav-btn')!;
 const menu: HTMLElement = document.querySelector('.nav')!;
 const menuItems: NodeListOf<HTMLElement> = document.querySelectorAll('#header .nav-list__items');
@@ -256,15 +258,20 @@ submitBTN.addEventListener('click', (): void => {
   const errorsOnPage: NodeListOf<HTMLElement> = document.querySelectorAll('.input-error');
 
   if (!errorsOnPage.length) {
-    const randomNumber: number = getRandomNumber();
+    toogleModalBCG();
 
-    if (randomNumber < 0.7) {
-      modalOpen('succes');
-    } else {
-      modalOpen('error');
-    }
-
-    toogleModal();
+    // imitation of waiting for a response from the server
+    const sendNumber: number = getRandomNumber();
+    const delay: number = sendNumber * 1500;
+    spinner.classList.add('spinner_visible');
+    setTimeout(() => {
+      spinner.classList.remove('spinner_visible');
+      if (sendNumber < 0.7) {
+        modalOpen('succes');
+      } else {
+        modalOpen('error');
+      }
+    }, delay);
   };
 });
 
@@ -280,28 +287,34 @@ function modalOpen(type: 'succes'|'error'|'agreement'): void {
   if (type === 'agreement') {
     modal?.classList.add('agreement');
   }
+  toogleModal();
 }
 
+function toogleModalBCG(): void {
+  modalBCG!.classList.toggle('modal-background_visible');
+}
 function toogleModal(): void {
-  modalBCG!.classList.toggle('visible');
+  modal!.classList.toggle('modal_visible');
 }
 
 modalCloseBtns.forEach((btn: HTMLElement): void => {
   btn.addEventListener('click', (event: Event): void => {
     event.stopPropagation();
     toogleModal();
+    toogleModalBCG();
   });
 })
 
 modalBCG?.addEventListener('click', (event: Event): void => {
   event.stopPropagation();
   toogleModal();
+  toogleModalBCG();
 });
 
 agreeLink!.addEventListener('click', (event: Event): void => {
   event.stopPropagation();
   modalOpen('agreement');
-  toogleModal();
+  toogleModalBCG();
 });
 
 interface IBTNUp {

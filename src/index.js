@@ -18,7 +18,9 @@ var modalBCG = document.querySelector('.modal-background');
 var modal = document.querySelector('.modal');
 var modalCaptionEl = document.querySelector('.modal-caption');
 var modalTextEl = document.querySelector('.modal-text');
+var modalWrapper = document.querySelector('.modal-wrapper');
 var agreeLink = document.querySelector('#agreement-link');
+var spinner = document.querySelector('.spinner');
 var menuBTN = document.querySelector('.nav-btn');
 var menu = document.querySelector('.nav');
 var menuItems = document.querySelectorAll('#header .nav-list__items');
@@ -188,14 +190,20 @@ submitBTN.addEventListener('click', function () {
         showError(checkboxContainer, errors.isNotChecked);
     var errorsOnPage = document.querySelectorAll('.input-error');
     if (!errorsOnPage.length) {
-        var randomNumber = getRandomNumber();
-        if (randomNumber < 0.7) {
-            modalOpen('succes');
-        }
-        else {
-            modalOpen('error');
-        }
-        toogleModal();
+        toogleModalBCG();
+        // imitation of waiting for a response from the server
+        var sendNumber_1 = getRandomNumber();
+        var delay = sendNumber_1 * 1500;
+        spinner.classList.add('spinner_visible');
+        setTimeout(function () {
+            spinner.classList.remove('spinner_visible');
+            if (sendNumber_1 < 0.7) {
+                modalOpen('succes');
+            }
+            else {
+                modalOpen('error');
+            }
+        }, delay);
     }
     ;
 });
@@ -209,24 +217,30 @@ function modalOpen(type) {
     if (type === 'agreement') {
         modal === null || modal === void 0 ? void 0 : modal.classList.add('agreement');
     }
+    toogleModal();
+}
+function toogleModalBCG() {
+    modalBCG.classList.toggle('modal-background_visible');
 }
 function toogleModal() {
-    modalBCG.classList.toggle('visible');
+    modal.classList.toggle('modal_visible');
 }
 modalCloseBtns.forEach(function (btn) {
     btn.addEventListener('click', function (event) {
         event.stopPropagation();
         toogleModal();
+        toogleModalBCG();
     });
 });
 modalBCG === null || modalBCG === void 0 ? void 0 : modalBCG.addEventListener('click', function (event) {
     event.stopPropagation();
     toogleModal();
+    toogleModalBCG();
 });
 agreeLink.addEventListener('click', function (event) {
     event.stopPropagation();
     modalOpen('agreement');
-    toogleModal();
+    toogleModalBCG();
 });
 var btnUp = {
     el: document.querySelector('.top-btn'),

@@ -746,7 +746,7 @@ main {
   transition: 0.2s;
   z-index: 10;  
 }
-.modal-background.visible {
+.modal-background.modal-background_visible {
   display: flex;
 }
 .modal {
@@ -757,6 +757,10 @@ main {
   left: 50%;
   background-color: var(--modalcolor);
   transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+.modal_visible {
+  visibility: visible;
 }
 .modal-caption {
   font-weight: 600;
@@ -808,6 +812,47 @@ main {
   background-image: url(./assets/logo.svg);
   background-size: cover;
   filter: invert(0%) sepia(92%) saturate(0%) hue-rotate(170deg) brightness(150%) contrast(102%);
+}
+.spinner {
+  position: relative;
+  margin: auto auto;
+  width: 60px;
+  height: 60px;
+  visibility: hidden;
+  z-index: 10;
+}
+.spinner.spinner_visible {
+  visibility: visible;
+}
+.spinner__item1, 
+.spinner__item2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--maincolor);
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;  
+  -webkit-animation: sk-bounce 1.0s infinite ease-in-out;
+  animation: sk-bounce 1.0s infinite ease-in-out;
+}
+.spinner__item2 {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }
 
 @media (max-width: 1630px) {
