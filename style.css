@@ -163,8 +163,8 @@ main {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  right: 0px;
-  top: -17px;
+  right: 15px;
+  top: 20px;
   background: var(--addcolor2);
   z-index: 2;
   cursor: pointer;
@@ -461,6 +461,9 @@ main {
   color: var(--errorcolor);
   border-bottom: 3px solid var(--errorcolor);
 }
+.input-container.input-container_error pre {
+  color: var(--fontcolor);
+}
 .flex-container > .input-container {
   width: 31.5%;
 }
@@ -564,6 +567,7 @@ main {
 .files-container {
   width: calc(100% - 300px);
   display: flex;
+  justify-content: flex-start;
   margin-left: 60px;
   column-gap: 20px;
   row-gap: 16px;
@@ -775,6 +779,9 @@ main {
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   cursor: pointer;
 }
+.modal-close:hover {
+  transform: scale(1.1);
+}
 .agreement {
   width: 80%;
   height: 75%;
@@ -974,6 +981,15 @@ main {
   }
 }
 
+@media (max-width: 1000px) {
+  form .flex-container {
+    flex-direction: column;
+  }
+  .flex-container .input-container {
+    width: 100%;
+  }
+}
+
 @media (max-width: 900px) {
   .section-wrapper {
     margin: 0 50px;
@@ -1093,11 +1109,12 @@ main {
   .nav-btn {
     visibility: visible;
   }
-  .nav {
+  .nav-container {
     position: fixed;
     width: 100%;
     top: 0px;
     left: 0px;
+    z-index: 1;
   }
   .nav-list {
     display: none;
