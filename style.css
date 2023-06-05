@@ -154,6 +154,9 @@ main {
 .header-container__link:hover {
   color: var(--addcolor2);
 }
+.nav-container {
+  z-index: 3;
+}
 .nav-btn {
   position: absolute;
   visibility: hidden;
@@ -1114,7 +1117,6 @@ main {
     width: 100%;
     top: 0px;
     left: 0px;
-    z-index: 1;
   }
   .nav-list {
     display: none;

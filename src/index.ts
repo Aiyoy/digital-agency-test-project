@@ -343,8 +343,8 @@ menuBTN.addEventListener('click', (): void => {
 
 menuItems.forEach((item: HTMLElement): void => {
   item.addEventListener('click', (): void => {
-    menu.classList.toggle('nav_open');
-    menuBTN.classList.toggle('nav-btn_open');
+    menu.classList.remove('nav_open');
+    menuBTN.classList.remove('nav-btn_open');
   })
 });
 

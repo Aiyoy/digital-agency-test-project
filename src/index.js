@@ -261,8 +261,8 @@ menuBTN.addEventListener('click', function () {
 });
 menuItems.forEach(function (item) {
     item.addEventListener('click', function () {
-        menu.classList.toggle('nav_open');
-        menuBTN.classList.toggle('nav-btn_open');
+        menu.classList.remove('nav_open');
+        menuBTN.classList.remove('nav-btn_open');
     });
 });
 function deleteFile(index) {
